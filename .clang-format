@@ -1,0 +1,41 @@
+# ClangFormat configuration
+# Author(s):       iFarbod <ifarbod@outlook.com>
+#
+# Copyright (c) 2015-2017 CTNorth Team
+#
+# Distributed under the MIT license (See accompanying file LICENSE or copy at
+# https://opensource.org/licenses/MIT)
+
+BasedOnStyle: LLVM
+IndentWidth: 4
+Language: Cpp
+PointerAlignment: Left
+AlignAfterOpenBracket: DontAlign
+AlignConsecutiveAssignments: false
+AlwaysBreakTemplateDeclarations: false
+AllowShortFunctionsOnASingleLine: true
+
+# Makes maintaining initalizer lists a little easier
+BreakConstructorInitializersBeforeComma: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+ColumnLimit: 120
+NamespaceIndentation: None
+SpaceAfterTemplateKeyword: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+IndentCaseLabels: true
+UseTab: Never
+AccessModifierOffset: -4

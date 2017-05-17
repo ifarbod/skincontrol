@@ -1,0 +1,32 @@
+# EditorConfig file
+# Author(s):       iFarbod <ifarbod@outlook.com>
+#
+# Copyright (c) 2015-2017 CTNorth Team
+#
+# Distributed under the MIT license (See accompanying file LICENSE or copy at
+# https://opensource.org/licenses/MIT)
+
+# top-most EditorConfig file
+root = true
+
+# Windows-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# 4 space indentation for C++ files
+[*.{h,hh,hpp,hxx,h++,c,cc,cpp,cxx,c++}]
+indent_style = space
+indent_size = 4
+
+# Script files and configuration files
+[*.{as,angelscript,lua,cs,ts,js,xml,json}]
+indent_style = space
+indent_size = 4
+
+# YAML files use 2space indentation
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
