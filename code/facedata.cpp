@@ -66,18 +66,18 @@ void getFreeModeFace(PedSkin & skin, int type, bool global){
 		return;
 	}
 	Ped id = PLAYER::PLAYER_PED_ID();
-	HeadBlend temp;
+    HeadBlend temp;
 	int val;
 	if (global){
-		PED::_0x2746BD9D88C5C5D0(id, (Any*)&temp);
-		if (temp.faceMother >= PED::_0x68D353AB88B97E0C(3))
-			skin.freemodeData.mother = temp.faceMother - PED::_0x68D353AB88B97E0C(3) + PED::_GET_NUM_PARENT_PEDS_OF_TYPE(1);
+		PED::_GET_PED_HEAD_BLEND_DATA(id, (Any*)&temp);
+		if (temp.faceMother >= PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(3))
+			skin.freemodeData.mother = temp.faceMother - PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(3) + PED::_GET_NUM_PARENT_PEDS_OF_TYPE(1);
 		else
-			skin.freemodeData.mother = temp.faceMother - PED::_0x68D353AB88B97E0C(1);
-		if (temp.faceFather >= PED::_0x68D353AB88B97E0C(2))
-			skin.freemodeData.father = temp.faceMother - PED::_0x68D353AB88B97E0C(2) + PED::_GET_NUM_PARENT_PEDS_OF_TYPE(0);
+			skin.freemodeData.mother = temp.faceMother - PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(1);
+		if (temp.faceFather >= PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(2))
+			skin.freemodeData.father = temp.faceMother - PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(2) + PED::_GET_NUM_PARENT_PEDS_OF_TYPE(0);
 		else
-			skin.freemodeData.father = temp.faceFather - PED::_0x68D353AB88B97E0C(0);
+			skin.freemodeData.father = temp.faceFather - PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(0);
 		skin.freemodeData.faceRatio = SYSTEM::ROUND(temp.faceBlend * 16);
 		skin.freemodeData.skinRatio = SYSTEM::ROUND(temp.skinBlend * 16);
 		// I gave up. This part of the scripts is insane and looked like it was pulling the data
@@ -90,7 +90,7 @@ void getFreeModeFace(PedSkin & skin, int type, bool global){
 		skin.freemodeData.hairColor = PED::GET_PED_TEXTURE_VARIATION(id, 2);
 		skin.freemodeData.hairHighlights = skin.freemodeData.hairColor;
 		for (int i = 0; i < numFaceOverlays; ++i){
-			val = PED::_0xA60EF3B6461A4D43(id, internalToGame(i));
+			val = PED::_GET_PED_HEAD_OVERLAY_VALUE(id, internalToGame(i));
 			if (val == 255)
 				skin.freemodeData.overlay[i].value = -1;
 			else
@@ -121,12 +121,12 @@ void getFreeModeFace(PedSkin & skin, int type, bool global){
 
 void setPedHeadBlend(PedSkin & skin, Ped pedID){
 	int dad = skin.freemodeData.father;
-	int mom = PED::_0x68D353AB88B97E0C(1) + skin.freemodeData.mother;
+	int mom = PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(1) + skin.freemodeData.mother;
 	if (dad >= PED::_GET_NUM_PARENT_PEDS_OF_TYPE(0)){
-		dad = (dad - PED::_GET_NUM_PARENT_PEDS_OF_TYPE(0)) + PED::_0x68D353AB88B97E0C(2);
+		dad = (dad - PED::_GET_NUM_PARENT_PEDS_OF_TYPE(0)) + PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(2);
 	}
-	if (mom >= PED::_GET_NUM_PARENT_PEDS_OF_TYPE(1) + PED::_0x68D353AB88B97E0C(1)){
-		mom = mom - PED::_GET_NUM_PARENT_PEDS_OF_TYPE(1) - PED::_0x68D353AB88B97E0C(1) + PED::_0x68D353AB88B97E0C(3);
+	if (mom >= PED::_GET_NUM_PARENT_PEDS_OF_TYPE(1) + PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(1)){
+		mom = mom - PED::_GET_NUM_PARENT_PEDS_OF_TYPE(1) - PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(1) + PED::_GET_FIRST_PARENT_ID_FOR_PED_TYPE(3);
 	}
 	PED::SET_PED_HEAD_BLEND_DATA(pedID, mom, dad, 0, mom, dad, 0, (float)(skin.freemodeData.faceRatio) / 16.0f, (float)(skin.freemodeData.skinRatio) / 16.0f, 0.0f, 0);
 }
@@ -134,13 +134,13 @@ void setPedHeadBlend(PedSkin & skin, Ped pedID){
 void setPedHeadMorph(PedSkin & skin, Ped pedID, int id){
 	switch (id){
 	case 0: case 7: case 9: case 10: case 13: case 14: case 16: case 18:
-		PED::_0x71A5C1DBA060049E(pedID, id, (float)skin.freemodeData.morph[id] / 10.0);
+		PED::_SET_PED_FACE_FEATURE(pedID, id, (float)skin.freemodeData.morph[id] / 10.0);
 		break;
 	case 19: // absolute
-		PED::_0x71A5C1DBA060049E(pedID, id, (float)(skin.freemodeData.morph[id] + 10) / 20.0);
+		PED::_SET_PED_FACE_FEATURE(pedID, id, (float)(skin.freemodeData.morph[id] + 10) / 20.0);
 		break;
 	default: // reverse
-		PED::_0x71A5C1DBA060049E(pedID, id, (float)skin.freemodeData.morph[id] / -10.0);
+		PED::_SET_PED_FACE_FEATURE(pedID, id, (float)skin.freemodeData.morph[id] / -10.0);
 		break;
 	}
 }
@@ -167,19 +167,19 @@ void setPedFreemodeOverlay(PedSkin & skin, Ped pedID, int id, int type){
 	switch (id){
 	case oHairID:
 		PED::SET_PED_COMPONENT_VARIATION(pedID, 2, skin.freemodeData.hair, 1, PED::GET_PED_PALETTE_VARIATION(pedID, 2));
-		PED::_0x4CFFC65454C93A49(pedID, skin.freemodeData.hairColor, skin.freemodeData.hairHighlights);
+		PED::_SET_PED_HAIR_COLOR(pedID, skin.freemodeData.hairColor, skin.freemodeData.hairHighlights);
 		break;
 	case oEyeID:
-		PED::_0x50B56988B170AFDF(pedID, SYSTEM::ROUND((float)skin.freemodeData.eyeColor));
+		PED::_SET_PED_EYE_COLOR(pedID, SYSTEM::ROUND((float)skin.freemodeData.eyeColor));
 		break;
 	case oEyebrowID: case oBeardID: case oChestID: case oLipstickID: case oBlushID:
 		if (skin.freemodeData.overlay[id].value > -1){
 			PED::SET_PED_HEAD_OVERLAY(pedID, internalToGame(id), skin.freemodeData.overlay[id].value, (float)skin.freemodeData.overlay[id].opacity / 20.0);
-			PED::_0x497BF74A7B9CB952(pedID, internalToGame(id), internalToColorType(id, type), skin.freemodeData.overlay[id].color, skin.freemodeData.overlay[id].color);
+			PED::_SET_PED_HEAD_OVERLAY_COLOR(pedID, internalToGame(id), internalToColorType(id, type), skin.freemodeData.overlay[id].color, skin.freemodeData.overlay[id].color);
 		}
 		else{
 			PED::SET_PED_HEAD_OVERLAY(pedID, internalToGame(id), 0, 0.0f);
-			PED::_0x497BF74A7B9CB952(pedID, internalToGame(id), internalToColorType(id, type), 0, 0);
+			PED::_SET_PED_HEAD_OVERLAY_COLOR(pedID, internalToGame(id), internalToColorType(id, type), 0, 0);
 		}
 		break;
 	default:

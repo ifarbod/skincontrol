@@ -27,3 +27,17 @@ void setPedFreemodeOverlay(PedSkin & skin, Ped pedID, int id, int type);
 // contiguous in local (“internal”) memory
 // I don’t remember if they have to be called in order.
 int internalToGame(int iID);
+
+struct HeadBlend
+{
+    int faceMother;
+    int faceFather;
+    int faceCheater;
+    int skinMother;
+    int skinFather;
+    int skinCheater;
+    float faceBlend;
+    float skinBlend;
+    float cheaterBlend;
+    BOOL isParent;
+};

@@ -70,7 +70,7 @@ void checkPlayerModel(bool & nonDefaultSkin, Hash lastValidSkin)
 	Hash model = ENTITY::GET_ENTITY_MODEL(playerPed);
 	if ((ENTITY::IS_ENTITY_DEAD(playerPed) | PLAYER::IS_PLAYER_BEING_ARRESTED(player, TRUE)) != 0){
 		setMainMenu();
-		if (nonDefaultSkin)
+		if (/*nonDefaultSkin*/ false) // fuck this "feature" in particular!
 		{
 			MM::notifyAboveMap("Switching to player");
 			model = lastValidSkin;

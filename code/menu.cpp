@@ -456,13 +456,13 @@ void changeOverlay(MM::Input current, PedSkin & skin, int posX, int posY, int ty
 		case 2:
 			if (current == MM::UP){
 				++(skin.freemodeData.hairColor);
-				if (skin.freemodeData.hairColor >= PED::_0xE5C0CF872C2AD150()){
+				if (skin.freemodeData.hairColor >= PED::_GET_NUM_HAIR_COLORS()){
 					skin.freemodeData.hairColor = 0;
 				}
 			}
 			else if (current == MM::DOWN){
 				if (skin.freemodeData.hairColor <= 0){
-					skin.freemodeData.hairColor = PED::_0xE5C0CF872C2AD150();
+					skin.freemodeData.hairColor = PED::_GET_NUM_HAIR_COLORS();
 				}
 				--(skin.freemodeData.hairColor);
 			}
@@ -471,13 +471,13 @@ void changeOverlay(MM::Input current, PedSkin & skin, int posX, int posY, int ty
 		case 3:
 			if (current == MM::UP){
 				++(skin.freemodeData.hairHighlights);
-				if (skin.freemodeData.hairHighlights >= PED::_0xE5C0CF872C2AD150()){
+				if (skin.freemodeData.hairHighlights >= PED::_GET_NUM_HAIR_COLORS()){
 					skin.freemodeData.hairHighlights = 0;
 				}
 			}
 			else if (current == MM::DOWN){
 				if (skin.freemodeData.hairHighlights <= 0){
-					skin.freemodeData.hairHighlights = PED::_0xE5C0CF872C2AD150();
+					skin.freemodeData.hairHighlights = PED::_GET_NUM_HAIR_COLORS();
 				}
 				--(skin.freemodeData.hairHighlights);
 			}
