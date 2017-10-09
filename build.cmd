@@ -70,7 +70,7 @@ echo.
 buildtools\win\premake5 %* vs2017
 
 :: Build the solution
-"%MSBuildPath%\MSBuild.exe" ../build/SkinControl.sln /v:minimal /m /p:PreferredToolArchitecture=x64 /p:Configuration=Release /p:Platform=Win32
+"%MSBuildPath%\MSBuild.exe" build/SkinControl.sln /v:minimal /m /p:PreferredToolArchitecture=x64 /p:Configuration=Release /p:Platform=Win32
 
 :: TODO: Run deployment scripts here
 

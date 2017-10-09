@@ -16,7 +16,7 @@ const int numSaves = 25;
 
 // Determine the version type for the data file
 // Read out the hotkey (broken I guess)
-int checkDataFile(int & hotkey);
+int checkDataFile(int& hotkey);
 
 bool convertDataFile2_0();
 bool convertDataFile2_1();
@@ -25,27 +25,29 @@ bool convertDataFile2_1();
 void initDataFile();
 
 // Read the save names from the data file
-void peekNames(std::vector<std::string > * names);
+void peekNames(std::vector<std::string>* names);
 
-// Read skin from slot of the data file into game 
-void loadSkin(int slot, PedSkin & skin, WeaponData & currentWeaponData, Hash & lastValidSkin, bool & nonDefaultSkin, std::vector<Entity> & weapon, std::vector<std::pair<Hash, int>> & ammoWeapon);
+// Read skin from slot of the data file into game
+void loadSkin(int slot, PedSkin& skin, WeaponData& currentWeaponData, Hash& lastValidSkin, bool& nonDefaultSkin,
+    std::vector<Entity>& weapon, std::vector<std::pair<Hash, int>>& ammoWeapon);
 
 // Read skin from slot of the data file into memory
-bool loadPedInSlot(int slot, PedSkin & skin);
+bool loadPedInSlot(int slot, PedSkin& skin);
 
 // Prompt user for a name for this save
-char * getSaveName();
+char* getSaveName();
 
 // Get name and save skin to slot of the data file
-bool saveSkin(int slot, PedSkin & skin);
+bool saveSkin(int slot, PedSkin& skin);
 
 // Save skin to slot of the data file using name
-bool saveSkinToSlot(int slot, char * name, PedSkin & skin);;
+bool saveSkinToSlot(int slot, char* name, PedSkin& skin);
+;
 
 // Pack skin and name into a string
-std::string pedSkinAsString(PedSkin & skin, std::string name);
+std::string pedSkinAsString(PedSkin& skin, std::string name);
 
 // Unpack skin and name from a string
-bool pedSkinFromString(PedSkin & skin, std::string data);
+bool pedSkinFromString(PedSkin& skin, std::string data);
 
 #endif

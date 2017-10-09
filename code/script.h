@@ -21,8 +21,8 @@ Total layout change.
 Added support for setting tattoos, but can't be read from characters.
 Added support for setting additional freemode face options, but can't be read from characters.
 Skin changes are now applied immediately (excluding weapon components.)
-Use SELECT (Controller A, Enter, Space, Left Mouse) and BACK (Controller B, Backspace, Right Mouse) to advance/reverse in menus when UP and DOWN are otherwise occupied.
-Dying or being arrested now switches to last used player skin.
+Use SELECT (Controller A, Enter, Space, Left Mouse) and BACK (Controller B, Backspace, Right Mouse) to advance/reverse
+in menus when UP and DOWN are otherwise occupied. Dying or being arrested now switches to last used player skin.
 
 Added support for Combat PDW, Knuckle Duster, and Marksman Pistol.
 Weapons are maintained when dying or being arrested while not a player skin.
@@ -39,11 +39,10 @@ Removed unused prop slots.
 #ifndef SC_SCRIPT
 #define SC_SCRIPT
 
+#include "pedModel.h"
+#include "scripthookv/enums.h"
 #include "scripthookv/natives.h"
 #include "scripthookv/types.h"
-#include "scripthookv/enums.h"
-#include "pedModel.h"
-
 
 #include <vector>
 
@@ -55,95 +54,106 @@ const int firstProp = 12;
 const int watchSlot = 6;
 const int numTatSlots = 16;
 const int numMorphs = 20;
-const int numFaceOverlays = 13; // no hair, no eyecolor
+const int numFaceOverlays = 13;  // no hair, no eyecolor
 const int numOverlaySlots = 8;
 const int numWeaponMods = 7;
 
-struct WeaponData{
-	bool added;
-	unsigned char maxSlots;
-	unsigned char defaultMask; // Componentwise: 0-6
-	std::vector<unsigned char> slotToCmpMap; // Slotwise: 1 - maxSlots
-	std::vector<unsigned char> cmpToHashIDMap; //Componentwise: 0-6
-	WeaponData(){
-		slotToCmpMap.resize(numWeaponMods);
-		cmpToHashIDMap.resize(numWeaponMods);
-	}
-	WeaponData(unsigned char mS, unsigned char dM, std::vector<unsigned char> sTCM, std::vector<unsigned char> cTHIM) :
-		maxSlots(mS), defaultMask(dM), slotToCmpMap(sTCM), cmpToHashIDMap(cTHIM){
-		added = false;
-	}
+struct WeaponData
+{
+    bool added;
+    unsigned char maxSlots;
+    unsigned char defaultMask;                  // Componentwise: 0-6
+    std::vector<unsigned char> slotToCmpMap;    // Slotwise: 1 - maxSlots
+    std::vector<unsigned char> cmpToHashIDMap;  // Componentwise: 0-6
+    WeaponData()
+    {
+        slotToCmpMap.resize(numWeaponMods);
+        cmpToHashIDMap.resize(numWeaponMods);
+    }
+    WeaponData(unsigned char mS, unsigned char dM, std::vector<unsigned char> sTCM, std::vector<unsigned char> cTHIM)
+        : maxSlots(mS), defaultMask(dM), slotToCmpMap(sTCM), cmpToHashIDMap(cTHIM)
+    {
+        added = false;
+    }
 };
 
-struct FaceOverlay{
-	int value;
-	DWORD color;
-	DWORD opacity;
+struct FaceOverlay
+{
+    int value;
+    DWORD color;
+    DWORD opacity;
 };
 
-struct FMFace{
-	int mother;
-	int father;
-	DWORD faceRatio;
-	DWORD skinRatio;
-	int * morph;
-	DWORD eyeColor;
-	int hair;
-	DWORD hairColor;
-	DWORD hairHighlights;
-	FaceOverlay * overlay;
+struct FMFace
+{
+    int mother;
+    int father;
+    DWORD faceRatio;
+    DWORD skinRatio;
+    int* morph;
+    DWORD eyeColor;
+    int hair;
+    DWORD hairColor;
+    DWORD hairHighlights;
+    FaceOverlay* overlay;
 
-	FMFace(){
-		morph = new int[numMorphs];
-		overlay = new FaceOverlay[numFaceOverlays];
-	};
-	~FMFace(){
-		delete[] morph;
-		delete[] overlay;
-	};
+    FMFace()
+    {
+        morph = new int[numMorphs];
+        overlay = new FaceOverlay[numFaceOverlays];
+    };
+    ~FMFace()
+    {
+        delete[] morph;
+        delete[] overlay;
+    };
 };
 
-struct Tattoo{
-	int value;
-	int collection;
+struct Tattoo
+{
+    int value;
+    int collection;
 };
 
 int hashLookup(Hash hex);
 
-struct PedSkin{
-	Hash model;
-	int * drawable;
-	int * texture;
-	Tattoo * tattoo;
-	bool tatsPreserve;
-	Hash weapon;
-	DWORD weaponModMask;
-	DWORD weaponTint;
-	bool fmPreserve;
-	FMFace freemodeData;
+struct PedSkin
+{
+    Hash model;
+    int* drawable;
+    int* texture;
+    Tattoo* tattoo;
+    bool tatsPreserve;
+    Hash weapon;
+    DWORD weaponModMask;
+    DWORD weaponTint;
+    bool fmPreserve;
+    FMFace freemodeData;
 
-	PedSkin(){
-		drawable = new int[numParts];
-		texture = new int[numParts];
-		tattoo = new Tattoo[numTatSlots];
-		model = -1;
-		fmPreserve = false;
-		tatsPreserve = false;
-	};
-	~PedSkin(){
-		delete[] drawable;
-		delete[] texture;
-		delete[] tattoo;
-	}
+    PedSkin()
+    {
+        drawable = new int[numParts];
+        texture = new int[numParts];
+        tattoo = new Tattoo[numTatSlots];
+        model = -1;
+        fmPreserve = false;
+        tatsPreserve = false;
+    };
+    ~PedSkin()
+    {
+        delete[] drawable;
+        delete[] texture;
+        delete[] tattoo;
+    }
 };
 
 void ScriptMain();
 void main();
 
-void setNondefaultSkin(int skinIndex, bool & nonDefaultSkin);
-void setLastSkin(Hash model, Hash & lastValidSkin);
-void updateFeatures(bool & nonDefaultSkin, Hash lastValidSkin);
-void checkPlayerModel(bool & nonDefaultSkin, Hash lastValidSkin);
-void resetGlobals(int & convertFile);
+void setNondefaultSkin(int skinIndex, bool& nonDefaultSkin);
+void setLastSkin(Hash model, Hash& lastValidSkin);
+void updateFeatures(bool& nonDefaultSkin, Hash lastValidSkin);
+void checkPlayerModel(bool& nonDefaultSkin, Hash lastValidSkin);
+void resetGlobals(int& convertFile);
 
 #endif

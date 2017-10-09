@@ -28,8 +28,8 @@ const int partMenuID = 3;
 const int varMenuID = 4;
 
 // Navigation help
-const int menuXMax[numMenus] = { 4, 5, 37, 1, 0};
-const int menuYMax[numMenus] = { 1, 5, 20, 6, 0};
+const int menuXMax[numMenus] = {4, 5, 37, 1, 0};
+const int menuYMax[numMenus] = {1, 5, 20, 6, 0};
 
 // Internal ids for special face overlays
 const int oHairID = -2;
@@ -67,70 +67,80 @@ void setMainMenu();
 // Called when hotkey is pressed
 // Continually draws the current menus based on state and sends
 // user input to the appropriate “process” submenu.
-void processSkinControlMenu(int & convertFile, Hash & lastValidSkin, bool & nondefaultSkin, PedSkin & skin, std::vector<Entity> & weapon, std::vector<std::pair<Hash, int>> & ammoWeapons, int hotkey);
+void processSkinControlMenu(int& convertFile, Hash& lastValidSkin, bool& nondefaultSkin, PedSkin& skin,
+    std::vector<Entity>& weapon, std::vector<std::pair<Hash, int>>& ammoWeapons, int hotkey);
 
 // Receives input to the main menu
-void processOptionMenu(MM::Input current, bool & inUI, int(&menuX)[numMenus], int(&menuY)[numMenus]);
+void processOptionMenu(MM::Input current, bool& inUI, int (&menuX)[numMenus], int (&menuY)[numMenus]);
 
 // Receives input to the model select menu
-void processSkinMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], WeaponData & currentWeaponData, Hash & lastValidSkin, bool & nondefaultSkin, std::vector<Entity> & weapon, std::vector<std::pair<Hash, int>> & ammoWeapon);
+void processSkinMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus],
+    WeaponData& currentWeaponData, Hash& lastValidSkin, bool& nondefaultSkin, std::vector<Entity>& weapon,
+    std::vector<std::pair<Hash, int>>& ammoWeapon);
 
 // Receives input to the model components menu
-void processPartMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], int type);
+void processPartMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus], int type);
 
 // Receives input to the file selection menu
-int processFileMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], WeaponData & currentWeaponData, Hash & lastValidSkin, bool & nonDefaultSkin, std::vector<Entity> & weapon, std::vector<std::pair<Hash, int>> & ammoWeapon);
+int processFileMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus],
+    WeaponData& currentWeaponData, Hash& lastValidSkin, bool& nonDefaultSkin, std::vector<Entity>& weapon,
+    std::vector<std::pair<Hash, int>>& ammoWeapon);
 
 // Delegates input to the model components’ submenus.
-void processVariationMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], int type, WeaponData & currentWeaponData);
+void processVariationMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus], int type,
+    WeaponData& currentWeaponData);
 
 // Receives input to the face blend variation menu.
-void processFaceBlendMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus]);
+void processFaceBlendMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus]);
 
 // Receives input to the face morph variation menu.
-void processMorphMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus]);
+void processMorphMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus]);
 
 // Receives input to the face overlay variation menu.
-void processOverlayMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], int type);
+void processOverlayMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus], int type);
 
 // Receives input to one drawable (clothing / component) variation menu.
-void processDrawableMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], int slot);
+void processDrawableMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus], int slot);
 
 // Receives input to the clothing & props variation menu.
-void processClothingMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], int type);
+void processClothingMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus], int type);
 
 // Receives input to the tattoos variation menu.
-void processTatMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], int type);
+void processTatMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus], int type);
 
 // Receives input to the weapons variation menu.
-void processWeaponMenu(MM::Input current, PedSkin & skin, int(&menuX)[numMenus], int(&menuY)[numMenus], int type, WeaponData & currentWeaponData);
+void processWeaponMenu(MM::Input current, PedSkin& skin, int (&menuX)[numMenus], int (&menuY)[numMenus], int type,
+    WeaponData& currentWeaponData);
 
 // Push changes to game
-void changeMenuSkinDrawable(MM::Input current, PedSkin & skin, int posY);
-void changeMenuSkinTexture(MM::Input current, PedSkin & skin, int posY);
-void changeMenuWeapon(MM::Input current, PedSkin & skin, WeaponData & currentWeaponData);
-void changeMenuWeaponTint(MM::Input current, PedSkin & skin);
-void changeMenuWeaponModSetting(PedSkin & skin, WeaponData & currentWeaponData, int weaponModSlot, bool weaponModSetting);
+void changeMenuSkinDrawable(MM::Input current, PedSkin& skin, int posY);
+void changeMenuSkinTexture(MM::Input current, PedSkin& skin, int posY);
+void changeMenuWeapon(MM::Input current, PedSkin& skin, WeaponData& currentWeaponData);
+void changeMenuWeaponTint(MM::Input current, PedSkin& skin);
+void changeMenuWeaponModSetting(PedSkin& skin, WeaponData& currentWeaponData, int weaponModSlot, bool weaponModSetting);
 
 // Move selection
-void moveHorizontal(int menu, MM::Input current, int(&menuX)[numMenus], int(&menuY)[numMenus], int max);
-void moveVertical(int menu, MM::Input current, int(&menuX)[numMenus], int(&menuY)[numMenus], int max);
+void moveHorizontal(int menu, MM::Input current, int (&menuX)[numMenus], int (&menuY)[numMenus], int max);
+void moveVertical(int menu, MM::Input current, int (&menuX)[numMenus], int (&menuY)[numMenus], int max);
 
 void drawOptionMenu(int posX, float xPox, float yPos, std::string name);
-void drawFileMenu(int index, float xPos, float yPos, std::vector<std::string> * saveNames);
+void drawFileMenu(int index, float xPos, float yPos, std::vector<std::string>* saveNames);
 void drawSkinMenu(int posX, int posY, float xPos, float yPos);
-void drawPartMenu(int menu, int(&menuX)[numMenus], int(&menuY)[numMenus], float xPos, float yPos, int type, PedSkin & skin, WeaponData & currentWeaponData);
-void drawVariationMenu(int menu, int(&menuX)[numMenus], int(&menuY)[numMenus], float xPos, float yPos, int type, PedSkin & skin, WeaponData & currentWeaponData);
-void drawPedMenu(int index, int optionMenuSetting, float xPos, float yPos, std::vector<PedSkin> & skins);
+void drawPartMenu(int menu, int (&menuX)[numMenus], int (&menuY)[numMenus], float xPos, float yPos, int type,
+    PedSkin& skin, WeaponData& currentWeaponData);
+void drawVariationMenu(int menu, int (&menuX)[numMenus], int (&menuY)[numMenus], float xPos, float yPos, int type,
+    PedSkin& skin, WeaponData& currentWeaponData);
+void drawPedMenu(int index, int optionMenuSetting, float xPos, float yPos, std::vector<PedSkin>& skins);
 
-void drawFaceBlend(int menu, int posX, int posY, float xPos, float yPos, PedSkin & skin);
-void drawHeadMorph(int menu, int posX, int posY, float xPos, float yPos, PedSkin & skin);
-void drawOverlays(int menu, int posX, int posY, float xPos, float yPos, int type, PedSkin & skin);
-void drawOneDrawable(int menu, int posX, int posY, float xPos, float yPos, int i, bool spModel, PedSkin & skin);
-void drawTwoDrawable(int menu, int posX, int posY, float xPos, float yPos, int i, bool mpModel, bool spModel, PedSkin & skin);
-void drawClothingMenu(int menu, int posX, int posY, float xPos, float yPos, bool mpModel, bool spModel, PedSkin & skin);
-void drawTatMenu(int menu, int posX, int posY, float xPos, float yPos, int type, PedSkin & skin);
-void drawWeaponMenu(int menu, int posX, int posY, float xPos, float yPos, PedSkin & skin, WeaponData & currentWeaponData);
+void drawFaceBlend(int menu, int posX, int posY, float xPos, float yPos, PedSkin& skin);
+void drawHeadMorph(int menu, int posX, int posY, float xPos, float yPos, PedSkin& skin);
+void drawOverlays(int menu, int posX, int posY, float xPos, float yPos, int type, PedSkin& skin);
+void drawOneDrawable(int menu, int posX, int posY, float xPos, float yPos, int i, bool spModel, PedSkin& skin);
+void drawTwoDrawable(
+    int menu, int posX, int posY, float xPos, float yPos, int i, bool mpModel, bool spModel, PedSkin& skin);
+void drawClothingMenu(int menu, int posX, int posY, float xPos, float yPos, bool mpModel, bool spModel, PedSkin& skin);
+void drawTatMenu(int menu, int posX, int posY, float xPos, float yPos, int type, PedSkin& skin);
+void drawWeaponMenu(int menu, int posX, int posY, float xPos, float yPos, PedSkin& skin, WeaponData& currentWeaponData);
 
 std::string sublineAsString(std::string text, int A, int B);
 
