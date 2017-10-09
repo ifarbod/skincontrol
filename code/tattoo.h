@@ -18,6 +18,6 @@ Hash getTatCollectionHash(int id);
 
 Hash getTatHash(int type, int zone, int value);
 
-void getTats(PedSkin & skin, int type, bool global);
+void getTats(PedSkin& skin, int type, bool global);
 
-void updateTats(PedSkin & skin, int type);
+void updateTats(PedSkin& skin, int type);
