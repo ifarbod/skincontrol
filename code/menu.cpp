@@ -13,12 +13,6 @@ By Neutrinobeam
 #include "facedata.h"
 #include "keyboard.h"
 
-//MM::Color menuColor = 0x5F465FFF;
-//MM::Color menuShadowColor = 0xF2DAF2FF;
-
-MM::Color menuColor = 0x212A77FF;
-MM::Color menuSelectedColor = 0x3E51E0FF;
-
 #pragma warning(disable : 4244 4305)
 
 int SC_menu = 0; // Current menu id
@@ -1153,9 +1147,9 @@ void drawOptionMenu(int posX, float xPos, float yPos, std::string name){
 			caption = optionMenuNames[i];
 		}
 		if (SC_menu == optionMenuID && i == posX)
-			MM::drawRectWithText(caption, nameWidth, namePad, yPos, xPos + i * (nameWidth + nameXSpace), 0x000000FF, menuSelectedColor);
+			MM::drawRectWithText(caption, nameWidth, namePad, yPos, xPos + i * (nameWidth + nameXSpace), 0x000000FF, 0xF2DAF2FF);
 		else
-			MM::drawRectWithText(caption, nameWidth, namePad, yPos, xPos + i * (nameWidth + nameXSpace), 0xFFFFFFFF, menuColor);
+			MM::drawRectWithText(caption, nameWidth, namePad, yPos, xPos + i * (nameWidth + nameXSpace), 0xFFFFFFFF, 0x5F465FFF);
 	}
 }
 
@@ -1168,12 +1162,12 @@ void drawSkinMenu(int posX, int posY, float xPos, float yPos){
 			caption = "< ";
 			caption.append(getModelName(posX * menuYMax[skinMenuID] + i));
 			caption.append(" >");
-			MM::drawRectWithText(caption, nameWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos, nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+			MM::drawRectWithText(caption, nameWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos, nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 		}
 		else{
 			caption = getModelName(posX * menuYMax[skinMenuID] + i);
 			if (caption.size() > 0){
-				MM::drawRectWithText(caption, nameWidth, namePad, yPos + i *  (nameHeight + nameYSpace), xPos, nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+				MM::drawRectWithText(caption, nameWidth, namePad, yPos + i *  (nameHeight + nameYSpace), xPos, nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 			}
 		}
 	}
@@ -1218,9 +1212,9 @@ int partPrimaryToSecondary(int i, int type){
 void drawPartMenu(int menu, int(&menuX)[numMenus], int(&menuY)[numMenus], float xPos, float yPos, int type, PedSkin & skin, WeaponData & currentWeaponData){
 	for (int i = 0; i < getPartMenuMax(type); ++i){
 		if (menu == partMenuID && i == menuY[partMenuID])
-			MM::drawRectWithText(partPrimaryNames[partPrimaryToSecondary(i, type)], subMenuWidth, namePad, yPos + (i + 1) * (nameHeight + nameYSpace), xPos, nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+			MM::drawRectWithText(partPrimaryNames[partPrimaryToSecondary(i, type)], subMenuWidth, namePad, yPos + (i + 1) * (nameHeight + nameYSpace), xPos, nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 		else
-			MM::drawRectWithText(partPrimaryNames[partPrimaryToSecondary(i, type)], subMenuWidth, namePad, yPos + (i + 1) * (nameHeight + nameYSpace), xPos, nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+			MM::drawRectWithText(partPrimaryNames[partPrimaryToSecondary(i, type)], subMenuWidth, namePad, yPos + (i + 1) * (nameHeight + nameYSpace), xPos, nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 	}
 	drawVariationMenu(menu, menuX, menuY, xPos + subMenuWidth + nameXSpace, yPos + (1 + menuY[partMenuID]) * (nameHeight + nameYSpace), type, skin, currentWeaponData);
 }
@@ -1267,9 +1261,9 @@ void drawFaceBlend(int menu, int posX, int posY, float xPos, float yPos, PedSkin
 		}
 		for (int j = 0; j < 2; ++j){
 			if (menu == varMenuID && posY == i && posX == j)
-				MM::drawRectWithText(blendInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+				MM::drawRectWithText(blendInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 			else
-				MM::drawRectWithText(blendInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+				MM::drawRectWithText(blendInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 		}
 	}
 }
@@ -1281,9 +1275,9 @@ void drawHeadMorph(int menu, int posX, int posY, float xPos, float yPos, PedSkin
 		morphInfo[1] = std::to_string(10 - skin.freemodeData.morph[i]) + ":" + std::to_string(10 + skin.freemodeData.morph[i]);
 		for (int j = 0; j < 2; ++j){
 			if (menu == varMenuID && posY == i && posX == j)
-				MM::drawRectWithText(morphInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+				MM::drawRectWithText(morphInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 			else
-				MM::drawRectWithText(morphInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+				MM::drawRectWithText(morphInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 		}
 	}
 }
@@ -1345,10 +1339,10 @@ void drawOverlays(int menu, int posX, int posY, float xPos, float yPos, int type
 		for (int k = 0; k < getOverlayNumOptions(j); ++k){
 			if (menu == varMenuID && posY == i && posX == k){
 				overlayInfo = getOverlayText(skin, j, k, type);
-				MM::drawRectWithText(overlayInfo, subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+				MM::drawRectWithText(overlayInfo, subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 			} else if ((menu == partMenuID && posX == 0) || (menu == varMenuID && posY == i)){
 				overlayInfo = getOverlayText(skin, j, k, type);
-				MM::drawRectWithText(overlayInfo, subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+				MM::drawRectWithText(overlayInfo, subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 			}
 		}
 	}
@@ -1364,9 +1358,9 @@ void drawOneDrawable(int menu, int posX, int posY, float xPos, float yPos, int i
 	drawableInfo[2] = sublineAsString("Texture ", skin.texture[j] + 1, texMax);
 	for (int k = 0; k < 3; ++k){
 		if (menu == varMenuID && posY == 0 && posX == k)
-			MM::drawRectWithText((k == 0 || drawMax > 0) ? drawableInfo[k] : " ", subMenuWidth, namePad, yPos, xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+			MM::drawRectWithText((k == 0 || drawMax > 0) ? drawableInfo[k] : " ", subMenuWidth, namePad, yPos, xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 		else if ((menu == partMenuID && posX == 0) || (menu == varMenuID && posY == 0))
-			MM::drawRectWithText((k == 0 || drawMax > 0) ? drawableInfo[k] : " ", subMenuWidth, namePad, yPos, xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+			MM::drawRectWithText((k == 0 || drawMax > 0) ? drawableInfo[k] : " ", subMenuWidth, namePad, yPos, xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 	}
 }
 
@@ -1383,9 +1377,9 @@ void drawClothingMenu(int menu, int posX, int posY, float xPos, float yPos, bool
 		drawableInfo[2] = sublineAsString("Texture ", skin.texture[j] + 1, texMax);
 		for (int k = 0; k < 3; k++){
 			if (menu == varMenuID && posY + 2 == i && posX == k)
-				MM::drawRectWithText((k == 0 || drawMax > 0) ? drawableInfo[k] : " ", subMenuWidth, namePad, yPos + (i - 2) * (nameHeight + nameYSpace), xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+				MM::drawRectWithText((k == 0 || drawMax > 0) ? drawableInfo[k] : " ", subMenuWidth, namePad, yPos + (i - 2) * (nameHeight + nameYSpace), xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 			else if ((menu == partMenuID && posX == 0) || (menu == varMenuID && posY + 2 == i))
-				MM::drawRectWithText((k == 0 || drawMax > 0) ? drawableInfo[k] : " ", subMenuWidth, namePad, yPos + (i - 2) * (nameHeight + nameYSpace), xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+				MM::drawRectWithText((k == 0 || drawMax > 0) ? drawableInfo[k] : " ", subMenuWidth, namePad, yPos + (i - 2) * (nameHeight + nameYSpace), xPos + k * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 		}
 	}
 }
@@ -1400,9 +1394,9 @@ void drawTatMenu(int menu, int posX, int posY, float xPos, float yPos, int type,
 			n = getNumAvailableTat(getTatZone(i), type, 0);
 			tatInfo[1] = (t < 0) ? " " : (n <= 0) ? "None" : std::to_string(t + 1).append(" of ").append(std::to_string(n));
 			if (menu == varMenuID && posY == i && posX == j)
-				MM::drawRectWithText(tatInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+				MM::drawRectWithText(tatInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 			else
-				MM::drawRectWithText(tatInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+				MM::drawRectWithText(tatInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 		}
 	}
 }
@@ -1412,25 +1406,25 @@ void drawWeaponMenu(int menu, int posX, int posY, float xPos, float yPos, PedSki
 	std::string weaponInfo[2] = { "Name", getWeaponName(skin.weapon) };
 	for (int j = 0; j < 2; j++){
 		if (menu == varMenuID && posY == 0 && posX == j)
-			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos, xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos, xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 		else
-			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos, xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos, xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 	}
 	weaponInfo[0] = "Action";
 	weaponInfo[1] = (currentWeaponData.added ? "Drop" : "Equip");
 	for (int j = 0; j < 2; j++){
 		if (menu == varMenuID && posY == 1 && posX == j)
-			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + nameHeight + nameYSpace, xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + nameHeight + nameYSpace, xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 		else
-			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + nameHeight + nameYSpace, xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + nameHeight + nameYSpace, xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 	}
 	weaponInfo[0] = (isKnuckle(skin.weapon) ? "Type" : "Tint");
 	weaponInfo[1] =	sublineAsString("", skin.weaponTint + 1, getWeaponTintMax(skin.weapon));
 	for (int j = 0; j < 2; j++){
 		if (menu == varMenuID && posY == 2 && posX == j)
-			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + 2 * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + 2 * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 		else
-			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + 2 * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+			MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + 2 * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 	}
 	// Draw the weapon mod info
 	bool defaultSwaps = currentWeaponData.slotToCmpMap[0] == 0;
@@ -1441,9 +1435,9 @@ void drawWeaponMenu(int menu, int posX, int posY, float xPos, float yPos, PedSki
 			weaponInfo[0] = weaponSlotNames[nameIndex];
 			weaponInfo[1] = (nameIndex == 0) ? " " : (getWeaponModSetting(skin, currentWeaponData, i) ? "On" : "Off");
 			if (menu == varMenuID && posY == 3 + i && posX == j)
-				MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + (3 + i) * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
+				MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + (3 + i) * (nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, 0xF2DAF2FF);
 			else
-				MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + (3 + i) *(nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
+				MM::drawRectWithText(weaponInfo[j], subMenuWidth, namePad, yPos + (3 + i) *(nameHeight + nameYSpace), xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, 0x5F465FFF);
 		}
 	}
 }
@@ -1451,9 +1445,9 @@ void drawWeaponMenu(int menu, int posX, int posY, float xPos, float yPos, PedSki
 void drawFileMenu(int index, float xPos, float yPos, std::vector<std::string> * saveNames){
 	for (int i = 0; i < numSaves; i++){
 		if (i == index)
-			MM::drawRectWithText(saveNames->at(i), nameWidth, namePad + 3.0, yPos + (i % menuYMax[fileMenuID]) * (nameHeight + nameYSpace + 12.0), xPos + (i / menuYMax[fileMenuID]) * (nameWidth + nameXSpace), 0x000000FF, menuSelectedColor);
+			MM::drawRectWithText(saveNames->at(i), nameWidth, namePad + 3.0, yPos + (i % menuYMax[fileMenuID]) * (nameHeight + nameYSpace + 12.0), xPos + (i / menuYMax[fileMenuID]) * (nameWidth + nameXSpace), 0x000000FF, 0xF2DAF2FF);
 		else
-			MM::drawRectWithText(saveNames->at(i), nameWidth, namePad + 3.0, yPos + (i % menuYMax[fileMenuID]) * (nameHeight + nameYSpace + 12.0), xPos + (i / menuYMax[fileMenuID]) * (nameWidth + nameXSpace), 0xFFFFFFFF, menuColor);
+			MM::drawRectWithText(saveNames->at(i), nameWidth, namePad + 3.0, yPos + (i % menuYMax[fileMenuID]) * (nameHeight + nameYSpace + 12.0), xPos + (i / menuYMax[fileMenuID]) * (nameWidth + nameXSpace), 0xFFFFFFFF, 0x5F465FFF);
 	}
 }
 
