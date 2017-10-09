@@ -166,7 +166,7 @@ int internalToColorType(int iID, int type){
 void setPedFreemodeOverlay(PedSkin & skin, Ped pedID, int id, int type){
 	switch (id){
 	case oHairID:
-		PED::SET_PED_COMPONENT_VARIATION(pedID, 2, skin.freemodeData.hair, 1, PED::GET_PED_PALETTE_VARIATION(pedID, 2));
+		PED::SET_PED_COMPONENT_VARIATION(pedID, 2, skin.freemodeData.hair, 0, PED::GET_PED_PALETTE_VARIATION(pedID, 2));
 		PED::_SET_PED_HAIR_COLOR(pedID, skin.freemodeData.hairColor, skin.freemodeData.hairHighlights);
 		break;
 	case oEyeID:
