@@ -1,4 +1,4 @@
-:: MSBuild util
+:: Script to build CTNorth
 :: Author(s):       iFarbod <ifarbod@outlook.com>
 ::
 :: Copyright (c) 2015-2017 CTNorth Team
@@ -8,57 +8,71 @@
 
 @echo off
 
-:: Try to find a VS2017 install
-set VS15_REG_KEY="HKLM\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\SxS\VS7"
-set VS15_REG_SUBKEY="15.0"
+:: Check if 'vswhere' util from SxS installer can be found.
+if exist "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" (
+    set VSWhereDir="%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+    echo Found VSWhere from VS SxS Installer: "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+) else (
+    set VSWhereDir=buildtools\win\vswhere.exe
+    echo Couldn't find VSWhere from VS SxS Installer, falling back to vswhere in buildtools\win
+)
 
-:: Check if Visual Studio 15 (2017) is installed
-reg query %VS15_REG_KEY% /v %VS15_REG_SUBKEY% > nul 2>&1
-if %ERRORLEVEL% == 1 (
-	echo Could not find VS SxS install. Make sure you have Visual Studio 2017 installed
+:: Now use VSWhere to determine VS install's root directory
+for /f "usebackq delims=" %%i in (`%VSWhereDir% -latest -requires Microsoft.VisualStudio.Workload.NativeDesktop Microsoft.Component.MSBuild -property installationPath`) do (
+  set InstallDir=%%i
+)
+
+:: See if we can find devenv.exe to ensure base VS is installed or not
+if exist "%InstallDir%\Common7\IDE\devenv.exe" (
+    echo Found VS install: "%InstallDir%"
+) else (
+	echo Couldn't find a valid VS SxS install. Make sure you have Visual Studio 2017 with required toolchains installed properly.
     goto end
 )
 
-:: Find vcvars32.bat
-for /f "skip=2 tokens=2,*" %%a in ('reg query %VS15_REG_KEY% /v %VS15_REG_SUBKEY%') do set VCVARS32PATH="%%bVC\Auxiliary\Build"
-
-if not exist %VCVARS32PATH%\vcvars32.bat (
-    echo vcvars32 not found. Make sure you have Visual Studio 2017 installed
+:: Do extra validation to ensure the existence of required toolchains
+set MSBuildPath=%InstallDir%\MSBuild\15.0\Bin
+if not exist "%MSBuildPath%\MSBuild.exe" (
+    echo MSBuild not found. Make sure you have Visual Studio 2017 with required toolchains installed properly.
     goto end
 )
 
-:: Find MSBuild
-for /f "skip=2 tokens=2,*" %%a in ('reg query %VS15_REG_KEY% /v %VS15_REG_SUBKEY%') do set MSBUILDPATH="%%bMSBuild\15.0\Bin"
-
-if not exist %MSBUILDPATH%\msbuild.exe (
-    echo MSBuild not found. Make sure you have Visual Studio 2017 installed
+set vcvars32Path=%InstallDir%\VC\Auxiliary\Build
+if not exist "%vcvars32Path%\vcvars32.bat" (
+    echo vcvars32.bat not found. Make sure you have Visual Studio 2017 with required toolchains installed properly.
     goto end
 )
 
-:: Find NMake
-for /f "skip=2 tokens=2,*" %%a in ('reg query %VS15_REG_KEY% /v %VS15_REG_SUBKEY%') do set NMAKEPATH="%%b\VC\Tools\MSVC\14.10.25017\bin\HostX86\x86"
-
-if not exist %NMAKEPATH%\nmake.exe (
-    echo NMake not found. Make sure you have Visual Studio 2017 installed
+set vcvars64Path=%InstallDir%\VC\Auxiliary\Build
+if not exist "%vcvars64Path%\vcvars64.bat" (
+    echo vcvars64.bat not found. Make sure you have Visual Studio 2017 with required toolchains installed properly.
     goto end
 )
 
-echo Found vcvars32.bat at: %VCVARS32PATH%
-echo Found MSBuild at: %MSBUILDPATH%
-echo Found NMake at: %NMAKEPATH%
+set vcvarsallPath=%InstallDir%\VC\Auxiliary\Build
+if not exist "%vcvarsallPath%\vcvarsall.bat" (
+    echo vcvarsall.bat not found. Make sure you have Visual Studio 2017 with required toolchains installed properly.
+    goto end
+)
+
+set VsDevCmdPath=%InstallDir%\Common7\Tools
+if not exist "%VsDevCmdPath%\VsDevCmd.bat" (
+    echo VsDevCmd.bat not found. Make sure you have Visual Studio 2017 with required toolchains installed properly.
+    goto end
+)
 
 echo.
-echo.
 
-:: Set MSVC environment variables
-cd %VCVARS32PATH%
-call vcvars32.bat
+:: Install/Update CEF
+::buildtools\win\premake5 install_cef
 
 :: Generate VS2017 projects
-call premake5 %* vs2017
+buildtools\win\premake5 %* vs2017
 
 :: Build the solution
-%MSBUILDPATH%\msbuild build/SkinControl.sln /v:minimal /m /p:PreferredToolArchitecture=x64;Configuration=Release;Platform=Win32
+"%MSBuildPath%\MSBuild.exe" ../build/SkinControl.sln /v:minimal /m /p:PreferredToolArchitecture=x64 /p:Configuration=Release /p:Platform=Win32
+
+:: TODO: Run deployment scripts here
 
 :: Pause for 5 seconds and auto-close the command window
 :end
