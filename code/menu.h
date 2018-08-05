@@ -60,7 +60,7 @@ const float nameTextAlign = 3.0f;
 const float subMenuWidth = 110.0f;
 
 // I forget
-const int partMenuOffset = 1;
+const int partMenuOffset = 0;
 
 void setMainMenu();
 

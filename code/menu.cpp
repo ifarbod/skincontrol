@@ -1730,8 +1730,8 @@ void drawOneDrawable(int menu, int posX, int posY, float xPos, float yPos, int i
     int drawMax = getDrawableMax(j);
     int texMax = getTextureMax(j, skin.drawable[j]);
     drawableInfo[0] = (spModel ? spPartNames[i] : partNames[i]);
-    drawableInfo[1] = sublineAsString("Model ", skin.drawable[j] + 1, drawMax);
-    drawableInfo[2] = sublineAsString("Texture ", skin.texture[j] + 1, texMax);
+    drawableInfo[1] = sublineAsString("Model ", skin.drawable[j], drawMax);
+    drawableInfo[2] = sublineAsString("Texture ", skin.texture[j], texMax);
     for (int k = 0; k < 3; ++k)
     {
         if (menu == varMenuID && posY == 0 && posX == k)
@@ -1754,8 +1754,8 @@ void drawClothingMenu(int menu, int posX, int posY, float xPos, float yPos, bool
         drawMax = getDrawableMax(j);
         texMax = getTextureMax(j, skin.drawable[j]);
         drawableInfo[0] = (mpModel ? fmPartNames[i] : (spModel ? spPartNames[i] : partNames[i]));
-        drawableInfo[1] = sublineAsString("Model ", skin.drawable[j] + 1, drawMax);
-        drawableInfo[2] = sublineAsString("Texture ", skin.texture[j] + 1, texMax);
+        drawableInfo[1] = sublineAsString("Model ", skin.drawable[j], drawMax);
+        drawableInfo[2] = sublineAsString("Texture ", skin.texture[j], texMax);
         for (int k = 0; k < 3; k++)
         {
             if (menu == varMenuID && posY + 2 == i && posX == k)
@@ -1782,7 +1782,7 @@ void drawTatMenu(int menu, int posX, int posY, float xPos, float yPos, int type,
             t = skin.tattoo[i].value;
             n = getNumAvailableTat(getTatZone(i), type, 0);
             tatInfo[1] =
-                (t < 0) ? " " : (n <= 0) ? "None" : std::to_string(t + 1).append(" of ").append(std::to_string(n));
+                (t < 0) ? " " : (n <= 0) ? "None" : std::to_string(t).append(" of ").append(std::to_string(n));
             if (menu == varMenuID && posY == i && posX == j)
                 MM::drawRectWithText(tatInfo[j], subMenuWidth, namePad, yPos + i * (nameHeight + nameYSpace),
                     xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0x000000FF, 0.35, 0, menuSelectedColor);
@@ -1818,7 +1818,7 @@ void drawWeaponMenu(int menu, int posX, int posY, float xPos, float yPos, PedSki
                 xPos + j * (subMenuWidth + nameXSpace), nameTextAlign, false, 0xFFFFFFFF, 0.35, 0, menuColor);
     }
     weaponInfo[0] = (isKnuckle(skin.weapon) ? "Type" : "Tint");
-    weaponInfo[1] = sublineAsString("", skin.weaponTint + 1, getWeaponTintMax(skin.weapon));
+    weaponInfo[1] = sublineAsString("", skin.weaponTint, getWeaponTintMax(skin.weapon));
     for (int j = 0; j < 2; j++)
     {
         if (menu == varMenuID && posY == 2 && posX == j)
