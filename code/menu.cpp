@@ -1731,7 +1731,7 @@ void drawOneDrawable(int menu, int posX, int posY, float xPos, float yPos, int i
     int texMax = getTextureMax(j, skin.drawable[j]);
     drawableInfo[0] = (spModel ? spPartNames[i] : partNames[i]);
     drawableInfo[1] = sublineAsString("Model ", skin.drawable[j], drawMax);
-    drawableInfo[2] = sublineAsString("Texture ", skin.texture[j], texMax);
+    drawableInfo[2] = sublineAsString("Texture ", skin.texture[j] + 1, texMax);
     for (int k = 0; k < 3; ++k)
     {
         if (menu == varMenuID && posY == 0 && posX == k)
@@ -1755,7 +1755,7 @@ void drawClothingMenu(int menu, int posX, int posY, float xPos, float yPos, bool
         texMax = getTextureMax(j, skin.drawable[j]);
         drawableInfo[0] = (mpModel ? fmPartNames[i] : (spModel ? spPartNames[i] : partNames[i]));
         drawableInfo[1] = sublineAsString("Model ", skin.drawable[j], drawMax);
-        drawableInfo[2] = sublineAsString("Texture ", skin.texture[j], texMax);
+        drawableInfo[2] = sublineAsString("Texture ", skin.texture[j] + 1, texMax);
         for (int k = 0; k < 3; k++)
         {
             if (menu == varMenuID && posY + 2 == i && posX == k)
