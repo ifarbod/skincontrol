@@ -12,7 +12,7 @@ By Neutrinobeam
 
 #define SAVEFILE "Skin Control.ini"
 
-const int numSaves = 25;
+const int numSaves = 40;
 
 // Determine the version type for the data file
 // Read out the hotkey (broken I guess)

@@ -29,7 +29,7 @@ const int varMenuID = 4;
 
 // Navigation help
 const int menuXMax[numMenus] = {4, 5, 37, 1, 0};
-const int menuYMax[numMenus] = {1, 5, 20, 6, 0};
+const int menuYMax[numMenus] = {1, 8, 20, 6, 0};
 
 // Internal ids for special face overlays
 const int oHairID = -2;
