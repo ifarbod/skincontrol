@@ -59,8 +59,8 @@ const float nameYSpace = 2.0f;
 const float nameTextAlign = 3.0f;
 const float subMenuWidth = 110.0f;
 
-// I forget
-const int partMenuOffset = 0;
+// This does nothing :^)
+const int partMenuOffset = 1;
 
 void setMainMenu();
 
