@@ -47,7 +47,7 @@ Removed unused prop slots.
 #include <vector>
 
 #define VERSION "v2.2"
-#define HOTKEY 0x77
+#define HOTKEY 0x75
 
 const int numParts = 16;
 const int firstProp = 12;
