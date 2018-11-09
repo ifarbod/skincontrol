@@ -163,7 +163,7 @@ void processSkinControlMenu(int& convertFile, Hash& lastValidSkin, bool& nondefa
     inUI = true;
     while (inUI)
     {
-        maxTickCount = GetTickCount() + 200;
+        maxTickCount = GetTickCount() + 100;
         do
         {
             // Title
