@@ -35,13 +35,13 @@ void loadSkin(int slot, PedSkin& skin, WeaponData& currentWeaponData, Hash& last
 bool loadPedInSlot(int slot, PedSkin& skin);
 
 // Prompt user for a name for this save
-char* getSaveName();
+const char* getSaveName();
 
 // Get name and save skin to slot of the data file
 bool saveSkin(int slot, PedSkin& skin);
 
 // Save skin to slot of the data file using name
-bool saveSkinToSlot(int slot, char* name, PedSkin& skin);
+bool saveSkinToSlot(int slot, const char* name, PedSkin& skin);
 ;
 
 // Pack skin and name into a string

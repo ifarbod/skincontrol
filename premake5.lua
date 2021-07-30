@@ -1,17 +1,17 @@
 workspace "SkinControl"
     location "build"
     configurations { "Debug", "Release" }
-    platforms { "x86", "x64" }
+    platforms { "x64" }
     
-    flags { "StaticRuntime" }
+    staticruntime "On"
     targetprefix ""
-    buildoptions "/std:c++latest"
+    cppdialect "C++latest"
     
     symbols "On"
     characterset "Unicode"
     pic "On"
-    systemversion "10.0.15063.0"
-    toolset "v141"
+    systemversion "latest"
+    toolset "v142"
     
     filter "configurations:Release"
         optimize "Speed"

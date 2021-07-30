@@ -177,7 +177,7 @@ void notifyAboveMap(std::string msg)
 }
 
 // Audio
-std::deque<std::deque<LPSTR>> sounds = {
+std::deque<std::deque<const char*>> sounds = {
     {"none", "arm_3_car_glass_crash", "arm_3_pistol_cock", "arm_wrestling_whoosh_master",
         "bull_shark_testosterone_end_master", "bull_shark_testosterone_start_master", "chop_cam_a", "chop_cam_b",
         "chop_cam_c", "computers_mouse_click", "cop_heli_cam_background", "cop_heli_cam_bleep",
@@ -331,11 +331,11 @@ std::deque<std::deque<LPSTR>> sounds = {
 
 void menu_beep()
 {
-    AUDIO::PLAY_SOUND_FRONTEND(-1, sounds[44][22], sounds[44][0], 0);
+    //AUDIO::PLAY_SOUND_FRONTEND(-1, sounds[44][22], sounds[44][0], 0);
 }
 
 void playSound(DWORD collection, DWORD sound)
 {
-    AUDIO::PLAY_SOUND_FRONTEND(-1, sounds.at(collection).at(sound + 1), sounds.at(collection).at(0), 0);
+    //AUDIO::PLAY_SOUND_FRONTEND(-1, sounds.at(collection).at(sound + 1), sounds.at(collection).at(0), 0);
 }
 }

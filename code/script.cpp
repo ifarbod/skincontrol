@@ -12,9 +12,9 @@ By Neutrinobeam
 
 void ScriptMain()
 {
-    main();
+    Main();
 }
-void main()
+void Main()
 {
     int hotkey = HOTKEY;
     bool nonDefaultSkin = false;

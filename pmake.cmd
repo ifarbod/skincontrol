@@ -13,8 +13,8 @@ if "%1" == "clean" (
     echo Performing clean action...
     buildtools\win\premake5 clean
 ) else (
-    :: Invoke premake5 with specified args and VS2017 action
-    buildtools\win\premake5 %* vs2017
+    :: Invoke premake5 with specified args and VS2019 action
+    buildtools\win\premake5 %* vs2019
 )
 
 :: Pause for 5 seconds and auto-close the command window

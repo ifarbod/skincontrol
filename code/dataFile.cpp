@@ -534,7 +534,7 @@ bool loadPedInSlot(int slot, PedSkin& skin)
     return pedSkinFromString(skin, text);
 }
 
-char* getSaveName()
+const char* getSaveName()
 {
     bool done = false;
     int status = 0;
@@ -554,13 +554,13 @@ char* getSaveName()
 
 bool saveSkin(int slot, PedSkin& skin)
 {
-    char* name = getSaveName();
+    const char* name = getSaveName();
     if (strcmp(name, "") == 0)
         return false;
     return saveSkinToSlot(slot, name, skin);
 }
 
-bool saveSkinToSlot(int slot, char* name, PedSkin& skin)
+bool saveSkinToSlot(int slot, const char* name, PedSkin& skin)
 {
     std::string tempS = "";
     std::string text;

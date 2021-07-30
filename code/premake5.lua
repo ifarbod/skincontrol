@@ -10,6 +10,7 @@ project "SkinControl"
     {
         ["Headers/*"] = "**.h",
         ["Sources/*"] = "**.cpp",
+        ["Res/*"] = "**.rc",
         ["*"] = "premake5.lua"
     }
     
@@ -32,5 +33,6 @@ project "SkinControl"
     {
         "*.h",
         "*.cpp",
+        "skincontrol.rc",
         "premake5.lua"
     }

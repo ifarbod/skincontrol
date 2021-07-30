@@ -148,7 +148,7 @@ struct PedSkin
 };
 
 void ScriptMain();
-void main();
+void Main();
 
 void setNondefaultSkin(int skinIndex, bool& nonDefaultSkin);
 void setLastSkin(Hash model, Hash& lastValidSkin);
